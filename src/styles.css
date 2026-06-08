@@ -189,9 +189,10 @@ a {
 }
 
 .workspace {
+  --sidebar-width: 220px;
   display: grid;
   gap: 28px;
-  grid-template-columns: 220px 1fr;
+  grid-template-columns: var(--sidebar-width) 1fr;
   margin-top: 28px;
 }
 
@@ -683,13 +684,26 @@ a {
   color: rgba(255, 255, 255, 0.75);
 }
 
+/* W10: Dark tone card-action and link-status contrast overrides */
+.tone-dark .card-action {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.22);
+  color: #d8fff8;
+}
+
+.tone-dark .link-status {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #d8fff8;
+}
+
 .status-bar {
   align-items: center;
   background: var(--surface);
   border-radius: 8px;
   display: flex;
   gap: 18px;
-  margin: 28px 0 0 248px;
+  margin: 28px 0 0 calc(var(--sidebar-width, 220px) + 28px);
   min-height: 58px;
   padding: 0 22px;
   position: relative;
@@ -907,6 +921,26 @@ a {
   }
   50% {
     box-shadow: 0 0 0 8px rgba(48, 208, 120, 0);
+  }
+}
+
+/* W8: Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .link-card {
+    animation: none;
+  }
+
+  .pulse {
+    animation: none;
+  }
+
+  .pill-button,
+  .category-item,
+  .compact-link,
+  .link-card,
+  .toast,
+  .modal-copy-feedback {
+    transition: none;
   }
 }
 
