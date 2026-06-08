@@ -7,6 +7,7 @@ import { SidePanel } from "./components/SidePanel";
 import { LinkGrid } from "./components/LinkGrid";
 import { ContactModal } from "./components/ContactModal";
 import { StatusBar } from "./components/StatusBar";
+import { LandingPage } from "./components/LandingPage";
 
 /* ------------------------------------------------------------------ */
 /*  Utility helpers (App-level state initialisation)                  */
@@ -49,6 +50,8 @@ export function App() {
   const [copied, setCopied] = useState(false);
   const [notice, setNotice] = useState("");
   const [contactOpen, setContactOpen] = useState(false);
+  const [page, setPage] = useState("landing");
+  const [transitioning, setTransitioning] = useState(false);
   const timerRef = useRef(null);
   const t = copy[language];
 
@@ -123,6 +126,14 @@ export function App() {
     timerRef.current = window.setTimeout(() => setNotice(""), 1800);
   };
 
+  const handleEnter = () => {
+    setTransitioning(true);
+    setTimeout(() => {
+      setPage("launchpad");
+      setTransitioning(false);
+    }, 420);
+  };
+
   const handleLinkClick = async (event, item) => {
     if (item.opensContactCard) {
       event.preventDefault();
@@ -164,39 +175,50 @@ export function App() {
   /* ---- Render ---- */
 
   return (
-    <main className="shell" id="top">
-      <Header
-        theme={theme}
-        setTheme={setTheme}
-        language={language}
-        setLanguage={setLanguage}
-        t={t}
-      />
-
-      <section className="workspace">
-        <SidePanel
-          activeCategory={activeCategory}
-          setActiveCategory={setActiveCategory}
-          t={t}
-        />
-
-        <LinkGrid
-          filteredLinks={filteredLinks}
+    <div className={`page-transition${transitioning ? " page-transition--fade" : ""}`}>
+      {page === "landing" ? (
+        <LandingPage
+          onEnter={handleEnter}
+          theme={theme}
           language={language}
           t={t}
-          onLinkClick={handleLinkClick}
         />
-      </section>
+      ) : (
+        <main className="shell" id="top">
+          <Header
+            theme={theme}
+            setTheme={setTheme}
+            language={language}
+            setLanguage={setLanguage}
+            t={t}
+          />
 
-      <StatusBar copied={copied} notice={notice} t={t} />
+          <section className="workspace">
+            <SidePanel
+              activeCategory={activeCategory}
+              setActiveCategory={setActiveCategory}
+              t={t}
+            />
 
-      <ContactModal
-        open={contactOpen}
-        onClose={() => setContactOpen(false)}
-        copied={copied}
-        onCopyEmail={copyEmail}
-        t={t}
-      />
-    </main>
+            <LinkGrid
+              filteredLinks={filteredLinks}
+              language={language}
+              t={t}
+              onLinkClick={handleLinkClick}
+            />
+          </section>
+
+          <StatusBar copied={copied} notice={notice} t={t} />
+
+          <ContactModal
+            open={contactOpen}
+            onClose={() => setContactOpen(false)}
+            copied={copied}
+            onCopyEmail={copyEmail}
+            t={t}
+          />
+        </main>
+      )}
+    </div>
   );
 }
