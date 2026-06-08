@@ -1,0 +1,5 @@
+node_modules/
+dist/
+output/
+wcnmb-homepage-dist.zip
+.pd-starter-tmp/
