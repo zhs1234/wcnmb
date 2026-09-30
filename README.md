@@ -8,6 +8,26 @@ A personal developer launchpad with a cinematic landing page, project links, too
 
 ---
 
+## 在线演示 / Live demo
+
+[打开 WCNMB Developer Launchpad](https://show.wcnmb.top/)
+
+从欢迎页点击 `cd ~/launchpad`，即可浏览项目、工具与学习资源，并体验中英切换和明暗主题。
+
+## 界面预览 / Screenshots
+
+以下为线上站点的真实桌面截图（2026-09-30）。
+
+**欢迎页**
+
+![WCNMB 欢迎页：品牌标题、焦点标签与进入导航按钮](./docs/images/demo-home.png)
+
+**导航工作台**
+
+![WCNMB 导航工作台：分类侧栏、精选项目与资源列表](./docs/images/demo-launchpad.png)
+
+---
+
 ## ✨ 特性
 
 - 🚀 **Landing Page** — 全屏欢迎页，打字机效果、浮动代码装饰、光晕氛围、丝滑 fade 过渡
